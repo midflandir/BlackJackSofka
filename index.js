@@ -35,7 +35,8 @@ function startGame(){
   selectedCards.push(secondCard);
 
   console.log("Your Cards: " + selectedCards);
-  console.log("Sum: " + sumCards(selectedCards) + " \n");
+  let cardssum  = sumCards(selectedCards)
+  console.log("Sum: " + cardssum + " \n");
   
   drawCard();
 
@@ -71,7 +72,7 @@ function drawCard(){
       answer = answerIn;
       //readline.close();
     lowanswer = answer.toLowerCase();
-      switch(answer){
+      switch(lowanswer){
         case "y":
           console.log("Draw the card...");
  let i_newCard=Math.floor(Math.random() * cards.length);
@@ -107,7 +108,27 @@ function sumCards(cards){
   
   for(let i = 0; i < cards.length; i++){
     if(cards[i] === "A") {
+      
       sum += 1;
+
+
+  readline.question("Do you want to sum the A as 1 or 10? (1/10): \n", function(answerIn) {
+      answer = answerIn;
+      //readline.close();
+    lowanswer = answer.toLowerCase();
+      switch(lowanswer){
+        case "1":
+      sum += 1;
+          
+          break;
+        case "10":
+      sum += 10;
+          break;
+      }
+
+    });
+
+      
     } else if (cards[i] === "J" || cards[i] === "Q" || cards[i] === "K"){
       sum += 10;
     } else {
@@ -124,7 +145,8 @@ function sumCards(cards){
 
 function gamestatus(){
   console.log("Your Cards: "+ selectedCards);
-  console.log("Sum: " + sumCards(selectedCards) + " \n");
+  let cardssum  = sumCards(selectedCards)
+  console.log("Sum: " + cardssum + " \n");
 if ( sumCards(selectedCards) == 21){
 
 console.log("   Blackjack!!! \n  -----  You won the game with perfect Score  -----  \n  \n");
