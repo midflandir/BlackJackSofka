@@ -19,23 +19,23 @@ const readline = require('readline').createInterface({
 function startGame(){
   //TO DO: Add the first 2 cards randomly to the user
   //Math.random() - 0 - cards.length
-  console.log(cards);
+
   
   const i_firstCard=Math.floor(Math.random() * cards.length);
   const firstCard=cards[i_firstCard];
   cards.splice(i_firstCard, 1);
-  console.log(cards);
+
   
   const i_secondCard=Math.floor(Math.random() * cards.length);
   const secondCard=cards[i_secondCard];
   cards.splice(i_secondCard, 1);
-  console.log(cards);
+
   
   selectedCards.push(firstCard);
   selectedCards.push(secondCard);
 
-  console.log("Cards: "+ selectedCards);
-  console.log("Sum: " + sumCards(selectedCards));
+  console.log("Your Cards: " + selectedCards);
+  console.log("Sum: " + sumCards(selectedCards) + " \n");
   
   drawCard();
 
@@ -66,11 +66,13 @@ function playingGame(){
 }
 */
 function drawCard(){
-  readline.question("Do you want to draw a card? (Y/N): ", function(answerIn){
+
+  readline.question("Do you want to draw a card? (Y/N): \n", function(answerIn) {
       answer = answerIn;
-      readline.close();
+      //readline.close();
+    lowanswer = answer.toLowerCase();
       switch(answer){
-        case "Y":
+        case "y":
           console.log("Draw the card...");
  let i_newCard=Math.floor(Math.random() * cards.length);
   let newCard=cards[i_newCard];
@@ -82,8 +84,8 @@ gamestatus();
 
           
           break;
-        case "N":
-          console.log("Ok, game finished.");
+        case "n":
+gamestatus();
           break;
         default:
           console.log("Invalid input. ");
@@ -91,6 +93,7 @@ gamestatus();
       }
 
     });
+
 }
 
 
@@ -120,20 +123,20 @@ function sumCards(cards){
 
 
 function gamestatus(){
-  console.log("Cards: "+ selectedCards);
-  console.log("Sum: " + sumCards(selectedCards));
+  console.log("Your Cards: "+ selectedCards);
+  console.log("Sum: " + sumCards(selectedCards) + " \n");
 if ( sumCards(selectedCards) == 21){
 
-console.log("Blackjack!!! \n  You won the game with perfect Score");
+console.log("   Blackjack!!! \n  -----  You won the game with perfect Score  -----  \n  \n");
   newgame();
 }
-  if(sumCards(selectedCards) < 21 && sumCards(selectedCards) >= 18){
-    console.log("Blackjack!!! \n You won the game");
+  if(sumCards(selectedCards) < 21 && sumCards(selectedCards) >= 13){
+    console.log("Blackjack!!! \n  -----  You won the game -----  \n  \n");
   newgame();
   }
 
-  if(sumCards(selectedCards) < 18 ){
-        console.log("Continue.")
+  if(sumCards(selectedCards) < 13 ){
+
 drawCard();
   }
 
@@ -142,9 +145,14 @@ drawCard();
   }
 
 }
+
+
+
+
 function newgame(){
   totalgamecounter =+ 1; 
-  let selectedCards=[]; //First and second card -randomly. And then add with a draw function
+  
+  selectedCards.splice(0,selectedCards.length)
 let sum =0;
 let answer ="";
 cards =["A","2","3","4","5","6","7","8","9","10","K","Q","J"];
@@ -189,6 +197,6 @@ function sumEachCard(elem){
 
 
 
-console.log("Blackjack");
-console.log("Feeling with luck? - Give it a try~~");
+console.log("Blackjack  \n");
+console.log("Feeling with luck? - Give it a try~~  \n");
 startGame();
