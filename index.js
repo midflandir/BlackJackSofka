@@ -108,26 +108,26 @@ function sumCards(cards){
   
   for(let i = 0; i < cards.length; i++){
     if(cards[i] === "A") {
+
+      sum += 1;
       
-      sum += 1;
-
-
-  readline.question("Do you want to sum the A as 1 or 10? (1/10): \n", function(answerIn) {
+/*
+  readline.question("Do you want to sum the A as 1 or 10? (one/ten): \n", function(answerIn) {
       answer = answerIn;
-      //readline.close();
+
     lowanswer = answer.toLowerCase();
-      switch(lowanswer){
-        case "1":
-      sum += 1;
-          
-          break;
-        case "10":
-      sum += 10;
-          break;
-      }
+if (lowanswer ==  "one"){
+        sum += 1;
+            console.log("here one \n")
+}
+    
+if (lowanswer ==  "ten"){
+        sum += 10;
+            console.log("here ten \n")
+}
 
     });
-
+*/
       
     } else if (cards[i] === "J" || cards[i] === "Q" || cards[i] === "K"){
       sum += 10;
@@ -135,6 +135,7 @@ function sumCards(cards){
       sum += parseInt(cards[i]);
     }
   }
+
   return sum; 
 
   cards.forEach(sumEachCard);
@@ -147,22 +148,22 @@ function gamestatus(){
   console.log("Your Cards: "+ selectedCards);
   let cardssum  = sumCards(selectedCards)
   console.log("Sum: " + cardssum + " \n");
-if ( sumCards(selectedCards) == 21){
+if ( cardssum == 21){
 
 console.log("   Blackjack!!! \n  -----  You won the game with perfect Score  -----  \n  \n");
   newgame();
 }
-  if(sumCards(selectedCards) < 21 && sumCards(selectedCards) >= 13){
+  if(cardssum < 21 && cardssum >= 13){
     console.log("Blackjack!!! \n  -----  You won the game -----  \n  \n");
   newgame();
   }
 
-  if(sumCards(selectedCards) < 13 ){
+  if(cardssum < 13 ){
 
 drawCard();
   }
 
-  if(sumCards(selectedCards) > 21 ){
+  if(cardssum > 21 ){
     console.log("Sorry, you lose.")
   }
 
@@ -172,6 +173,27 @@ drawCard();
 
 
 function newgame(){
+
+
+
+  readline.question("Do you want to draw a card? (Y/N): \n", function(answerIn) {
+      answer = answerIn;
+      //readline.close();
+    lowanswer = answer.toLowerCase();
+      switch(lowanswer){
+        case "y":
+          console.log("Draw the card...");
+ let i_newCard=Math.floor(Math.random() * cards.length);
+  let newCard=cards[i_newCard];
+  selectedCards.push(newCard);
+                  case "y":
+          console.log("Draw the card...");
+ let i_newCard=Math.floor(Math.random() * cards.length);
+  let newCard=cards[i_newCard];
+  selectedCards.push(newCard);
+      }
+      });
+  
   totalgamecounter =+ 1; 
   
   selectedCards.splice(0,selectedCards.length)
