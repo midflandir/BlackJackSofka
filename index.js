@@ -1,9 +1,10 @@
-const cards =["A","2","3","4","5","6","7","8","9","10","K","Q","J"];
+let cards =["A","2","3","4","5","6","7","8","9","10","K","Q","J"];
 //suit: heart, diamond, ace and clover
 
 //First time: A = 11
 //Other times: A = 1
 let selectedCards=[]; //First and second card -randomly. And then add with a draw function
+let totalgamecounter  = 0;
 let sum =0;
 let answer ="";
 
@@ -18,19 +19,25 @@ const readline = require('readline').createInterface({
 function startGame(){
   //TO DO: Add the first 2 cards randomly to the user
   //Math.random() - 0 - cards.length
+  console.log(cards);
+  
   const i_firstCard=Math.floor(Math.random() * cards.length);
-  const i_secondCard=Math.floor(Math.random() * cards.length);
-
   const firstCard=cards[i_firstCard];
+  cards.splice(i_firstCard, 1);
+  console.log(cards);
+  
+  const i_secondCard=Math.floor(Math.random() * cards.length);
   const secondCard=cards[i_secondCard];
-
+  cards.splice(i_secondCard, 1);
+  console.log(cards);
+  
   selectedCards.push(firstCard);
   selectedCards.push(secondCard);
 
   console.log("Cards: "+ selectedCards);
   console.log("Sum: " + sumCards(selectedCards));
   
-  playingGame();
+  drawCard();
 
 }
 /*
@@ -38,33 +45,42 @@ function startGame(){
 = 21 - Blackjack!
 > 21 - Y
 */
-
+/*
 function playingGame(){
   if(sum<21){
     //console.log("Do you want to draw a card? (Y/N)"); //Input
     readline.question('Do you want to draw a card? (Y/N)', (opt) => {
-     // console.log( opt );
+      console.log( opt );
       readline.close();
-    })
-    
-  }else 
+      if (opt == Y){  
+      };
+    }                
+    )  
+  } else 
     if(sum===21){
     console.log("Blackjack!");
-  }else
+  } else
     {
     console.log("Sorry, you lose.")
   }
-
-
 }
-
+*/
 function drawCard(){
   readline.question("Do you want to draw a card? (Y/N): ", function(answerIn){
       answer = answerIn;
-
+      readline.close();
       switch(answer){
         case "Y":
           console.log("Draw the card...");
+ let i_newCard=Math.floor(Math.random() * cards.length);
+  let newCard=cards[i_newCard];
+  selectedCards.push(newCard);
+
+
+
+gamestatus();
+
+          
           break;
         case "N":
           console.log("Ok, game finished.");
@@ -77,10 +93,77 @@ function drawCard(){
     });
 }
 
+
+
+
+
+
 function sumCards(cards){
+
+  let sum = 0;
+  
+  for(let i = 0; i < cards.length; i++){
+    if(cards[i] === "A") {
+      sum += 1;
+    } else if (cards[i] === "J" || cards[i] === "Q" || cards[i] === "K"){
+      sum += 10;
+    } else {
+      sum += parseInt(cards[i]);
+    }
+  }
+  return sum; 
+
   cards.forEach(sumEachCard);
   return sum;
 }
+
+
+
+function gamestatus(){
+  console.log("Cards: "+ selectedCards);
+  console.log("Sum: " + sumCards(selectedCards));
+if ( sumCards(selectedCards) == 21){
+
+console.log("Blackjack!!! \n  You won the game with perfect Score");
+  newgame();
+}
+  if(sumCards(selectedCards) < 21 && sumCards(selectedCards) >= 18){
+    console.log("Blackjack!!! \n You won the game");
+  newgame();
+  }
+
+  if(sumCards(selectedCards) < 18 ){
+        console.log("Continue.")
+drawCard();
+  }
+
+  if(sumCards(selectedCards) > 21 ){
+    console.log("Sorry, you lose.")
+  }
+
+}
+function newgame(){
+  totalgamecounter =+ 1; 
+  let selectedCards=[]; //First and second card -randomly. And then add with a draw function
+let sum =0;
+let answer ="";
+cards =["A","2","3","4","5","6","7","8","9","10","K","Q","J"];
+startGame();
+
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 function sumEachCard(elem){
     //TO DO: separate what is number and what is letter, and set the corresponding value. regexp + test()
